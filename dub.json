@@ -1,11 +1,11 @@
 {
 	"name": "drete",
 	"authors": [
-		"Mark"
+		"Mark Fisher"
 	],
-	"description": "A minimal D application.",
-	"copyright": "Copyright © 2016, Mark",
-	"license": "proprietary",
+	"description": "Rete net implementation.",
+	"copyright": "Copyright © 2016, Mark Fisher",
+	"license": "GPL",
 	"buildRequirements" : [
 		"allowWarnings" 
 	]

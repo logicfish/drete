@@ -208,14 +208,6 @@ class Rete {
 		addRule(r);
 		return r;
 	}
-	void tell(const(ClassInfo) cls) {
-		addClass(cls);
-		void f(const(ClassInfo) a) {
-			tell(a);
-		}
-		cls.eachSuper!f;
-
-	}
 	void tell(T)(T item) {
 		Item _item = cast(Item) item;
 		debug(Rete) writeln("tell: "~_item.to!string~" "~typeid(T).to!string);
@@ -254,8 +246,6 @@ class Rete {
 			debug(Rete)writeln("Add super "~a.to!string);
 			addClass(a);
 			Item _i = cast(Item)(cast(type)item);
-			//classesByItem[_item]~=a;
-			//classesByItem[_i]~=a;
 			if(a in itemsByClass) {
 				itemsByClass[a] ~= _i;
 			} else {
@@ -266,17 +256,16 @@ class Rete {
 			registerBoundItem(a,_item);
 		}
 		itemsByClass.rehash;
-		//classesByItem.rehash;
 		debug(Rete)writeln("done addItem "~" "~item.to!string);
 	}
 	void delItem(T)(T item) {
 		Item _item = cast(Item) item;
 		classesByItem.remove(_item);
 		itemsByClass[typeid(T)].remove(_item);
-		void f(const(ClassInfo)a) {
-			itemsByClass[a].remove(_item);
+		alias types = TransitiveBaseTypeTuple!T;
+		foreach(type;types) {
+			itemsByClass[typeid(type)].remove(_item);
 		}
-		typeid(T).eachSuper!f;
 		auto b = bindingsForClass(typeid(T));
 		b.each!(a=>unregisterBoundItem(a,_item));
 		itemsByClass.rehash;
@@ -312,6 +301,7 @@ class Rete {
 		debug(Rete)writeln("done registerBoundItem "~" "~binding.to!string~" "~item.to!string);
 	}
 	void unregisterBoundItem(ParameterBinding binding,Item item) {
+		// TODO
 	}
 	void createMatchSets(BindingSet parent) {
 		debug(Rete)writeln("createMatchSets "~" "~parent.to!string);
@@ -418,11 +408,13 @@ unittest {
 	bool rule1CondIsFired = false;
 	
 	auto rule1 = rete.rule([typeid(MyTest),typeid(MyTest2)],delegate bool (void*[] a){
+		// conditon
 		assert(cast(MyTest)a[0] !is null);
 		assert(cast(MyTest2)a[1] !is null);
 		rule1CondIsFired = true;
 		return false;
 	},(void*[] a){
+		// application
 		assert(false);
 	});
 	
@@ -447,11 +439,13 @@ unittest {
 	bool rule1ApplyIsFired = false;
 
 	auto rule1 = rete.rule([typeid(MyTest),typeid(MyTest2)],delegate bool (void*[] a){
+		// Condition
 		assert(cast(MyTest)a[0] !is null);
 		assert(cast(MyTest2)a[1] !is null);
 		rule1CondIsFired = true;
 		return true;
 	},(void*[] a){
+		// Application
 		assert(cast(MyTest)a[0] !is null);
 		assert(cast(MyTest2)a[1] !is null);
 		rule1ApplyIsFired = true;
