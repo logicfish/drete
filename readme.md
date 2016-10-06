@@ -53,3 +53,11 @@ int i = rete.cycle();
 ```
 
 The return value is the count of rules which fired.
+
+TODO
+====
+
+ - 
+ - Asynchronous access.
+
+
