@@ -1,0 +1,12 @@
+{
+	"name": "drete",
+	"authors": [
+		"Mark"
+	],
+	"description": "A minimal D application.",
+	"copyright": "Copyright © 2016, Mark",
+	"license": "proprietary",
+	"buildRequirements" : [
+		"allowWarnings" 
+	]
+}

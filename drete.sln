@@ -1,0 +1,16 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{6170CAD8-6DAB-477D-BFBA-D762A30EC477}") = "drete", ".dub/drete.visualdproj", "{BE84BD57-ED1D-4B30-860B-7009DF4EB9BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		debug|x64 = debug|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE84BD57-ED1D-4B30-860B-7009DF4EB9BF}.debug|x64.ActiveCfg = debug|x64
+		{BE84BD57-ED1D-4B30-860B-7009DF4EB9BF}.debug|x64.Build.0 = debug|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
